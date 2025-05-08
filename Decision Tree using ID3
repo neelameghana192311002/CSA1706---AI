@@ -1,0 +1,54 @@
+from sklearn.tree import DecisionTreeClassifier
+from sklearn import tree
+
+# Sample training data (Play Tennis dataset)
+features = [
+    ['Sunny', 'Hot', 'High', 'False'],
+    ['Sunny', 'Hot', 'High', 'True'],
+    ['Overcast', 'Hot', 'High', 'False'],
+    ['Rain', 'Mild', 'High', 'False'],
+    ['Rain', 'Cool', 'Normal', 'False'],
+    ['Rain', 'Cool', 'Normal', 'True'],
+    ['Overcast', 'Cool', 'Normal', 'True'],
+    ['Sunny', 'Mild', 'High', 'False'],
+    ['Sunny', 'Cool', 'Normal', 'False'],
+    ['Rain', 'Mild', 'Normal', 'False'],
+    ['Sunny', 'Mild', 'Normal', 'True'],
+    ['Overcast', 'Mild', 'High', 'True'],
+    ['Overcast', 'Hot', 'Normal', 'False'],
+    ['Rain', 'Mild', 'High', 'True']
+]
+
+labels = ['No', 'No', 'Yes', 'Yes', 'Yes', 'No', 'Yes', 'No', 'Yes', 'Yes', 'Yes', 'Yes', 'Yes', 'No']
+
+# Convert text to numerical format using LabelEncoder
+from sklearn.preprocessing import LabelEncoder
+
+le = LabelEncoder()
+encoded_features = []
+
+# Encode each column
+for col in zip(*features):
+    encoded_features.append(le.fit_transform(col))
+    
+# Transpose to get rows back
+X = list(zip(*encoded_features))
+
+# Encode labels
+y = le.fit_transform(labels)
+
+# Train Decision Tree
+clf = DecisionTreeClassifier(criterion='entropy')
+clf.fit(X, y)
+
+# Print Tree
+print("Decision Tree (textual):")
+print(tree.export_text(clf, feature_names=['Outlook', 'Temperature', 'Humidity', 'Windy']))
+
+# Predict a new sample
+sample = [['Sunny', 'Cool', 'High', 'True']]
+sample_encoded = [le.fit_transform([val for val in col]) for col in zip(*sample)]
+sample_transposed = list(zip(*sample_encoded))
+
+predicted = clf.predict(sample_transposed)
+print("Predicted class:", le.inverse_transform(predicted)[0])
