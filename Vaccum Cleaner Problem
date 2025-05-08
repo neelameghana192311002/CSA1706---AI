@@ -1,0 +1,44 @@
+def vacuum_cleaner():
+    room_A = input("Enter status of Room A (Clean/Dirty): ").strip().lower()
+    room_B = input("Enter status of Room B (Clean/Dirty): ").strip().lower()
+    current_room = input("Enter starting room (A/B): ").strip().upper()
+
+    actions = []
+    cost = 0
+
+    if current_room == 'A':
+        if room_A == 'dirty':
+            actions.append("Clean Room A")
+            room_A = 'clean'
+            cost += 1
+        actions.append("Move to Room B")
+        cost += 1
+        if room_B == 'dirty':
+            actions.append("Clean Room B")
+            room_B = 'clean'
+            cost += 1
+
+    elif current_room == 'B':
+        if room_B == 'dirty':
+            actions.append("Clean Room B")
+            room_B = 'clean'
+            cost += 1
+        actions.append("Move to Room A")
+        cost += 1
+        if room_A == 'dirty':
+            actions.append("Clean Room A")
+            room_A = 'clean'
+            cost += 1
+
+    else:
+        print("Invalid room input.")
+        return
+
+    print("\n--- Vacuum Cleaner Simulation ---")
+    for i, act in enumerate(actions, 1):
+        print(f"Step {i}: {act}")
+    print(f"\nFinal State: Room A = {room_A.title()}, Room B = {room_B.title()}")
+    print(f"Total cost (actions taken): {cost}")
+
+# MAIN
+vacuum_cleaner()
