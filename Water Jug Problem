@@ -1,0 +1,48 @@
+from collections import deque
+
+def is_goal(state, goal):
+    return goal in state
+
+def get_next_states(x, y, cap_x, cap_y):
+    return [
+        (0, y),         # Empty Jug 1
+        (x, 0),         # Empty Jug 2
+        (cap_x, y),     # Fill Jug 1
+        (x, cap_y),     # Fill Jug 2
+        (max(0, x - (cap_y - y)), min(cap_y, x + y)),  # Pour Jug 1 → Jug 2
+        (min(cap_x, x + y), max(0, y - (cap_x - x)))   # Pour Jug 2 → Jug 1
+    ]
+
+def bfs(jug1, jug2, goal):
+    visited = set()
+    queue = deque()
+    queue.append(((0, 0), []))
+
+    while queue:
+        (x, y), path = queue.popleft()
+        if (x, y) in visited:
+            continue
+        visited.add((x, y))
+        path = path + [(x, y)]
+
+        if is_goal((x, y), goal):
+            return path
+
+        for next_state in get_next_states(x, y, jug1, jug2):
+            if next_state not in visited:
+                queue.append((next_state, path))
+    return None
+
+# MAIN
+jug1 = int(input("Enter capacity of Jug 1: "))
+jug2 = int(input("Enter capacity of Jug 2: "))
+goal = int(input("Enter target amount to be measured: "))
+
+solution = bfs(jug1, jug2, goal)
+
+if solution:
+    print("\nSteps to reach goal:")
+    for step in solution:
+        print(f"Jug1: {step[0]}L, Jug2: {step[1]}L")
+else:
+    print("No solution found.")
