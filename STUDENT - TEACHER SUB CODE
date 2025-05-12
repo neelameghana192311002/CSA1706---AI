@@ -1,0 +1,10 @@
+% teaches(Teacher, SubjectCode)
+teaches(mr_smith, cs101).
+teaches(ms_rao, cs102).
+teaches(dr_khan, cs103).
+
+% studies(Student, SubjectCode)
+studies(alice, cs101).
+studies(bob, cs102).
+studies(charlie, cs101).
+studies(david, cs103).
