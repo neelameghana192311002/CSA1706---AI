@@ -1,0 +1,21 @@
+% List of birds
+bird(sparrow).
+bird(penguin).
+bird(eagle).
+bird(ostrich).
+bird(pigeon).
+bird(bat).  % Not a bird but often confused
+
+% Birds that cannot fly
+cannot_fly(penguin).
+cannot_fly(ostrich).
+
+% Rule to check if a bird can fly
+can_fly(X) :-
+    bird(X),
+    \+ cannot_fly(X).
+
+% Rule to check if a bird cannot fly
+cannot_fly(X) :-
+    bird(X),
+    cannot_fly(X).
