@@ -1,0 +1,6 @@
+% Facts: dob(Name, Day, Month, Year).
+
+dob(john, 12, april, 2000).
+dob(mary, 5, june, 1999).
+dob(ravi, 23, december, 2001).
+dob(sita, 17, august, 1998).
