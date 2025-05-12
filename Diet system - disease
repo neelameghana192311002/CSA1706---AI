@@ -1,0 +1,12 @@
+% Diseases and suggested diets
+diet(diabetes, 'Avoid sugar, eat high fiber, whole grains, and vegetables.').
+diet(hypertension, 'Low sodium diet, fruits, vegetables, lean proteins.').
+diet(obesity, 'Low-calorie foods, avoid junk food, high fiber.').
+diet(anemia, 'Iron-rich foods like spinach, red meat, and legumes.').
+diet(ulcer, 'Avoid spicy food, eat soft bland food, milk, and banana.').
+
+% Rule to suggest diet
+suggest_diet(Disease) :-
+    diet(Disease, Recommendation),
+    write('For '), write(Disease), write(', suggested diet is: '), nl,
+    write(Recommendation), nl.
