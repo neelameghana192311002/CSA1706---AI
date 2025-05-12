@@ -1,0 +1,17 @@
+% Monkey-Banana Problem in Prolog
+% State: state(MonkeyPos, MonkeyOnBox, BoxPos, HasBanana)
+
+% Goal state
+goal(state(_, _, _, yes)).
+
+% Actions and state transitions
+move(state(middle, onbox, middle, no), grab, state(middle, onbox, middle, yes)).
+move(state(P, onfloor, P, H), climb, state(P, onbox, P, H)).
+move(state(P1, onfloor, P1, H), push(P1, P2), state(P2, onfloor, P2, H)).
+move(state(P1, onfloor, B, H), walk(P1, P2), state(P2, onfloor, B, H)).
+
+% Solve the problem
+can_get(state(_, _, _, yes), []).
+can_get(State1, [Action | Rest]) :-
+    move(State1, Action, State2),
+    can_get(State2, Rest).
